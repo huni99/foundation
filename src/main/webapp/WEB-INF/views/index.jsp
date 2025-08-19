@@ -12,5 +12,7 @@
 	index
 	test
 <!--member  -->
+
+<a href="/notice/list">notice이동</a>
 </body>
 </html>
