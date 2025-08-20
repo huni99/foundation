@@ -22,6 +22,10 @@ public interface MemberDAO {
 	// 회원에게 기본 권한 부여
 	public int addRole(Map<String, Object> map) throws Exception; 
 	
+	// update(정보 수정)
+	public int update(MemberVO memberVO) throws Exception;
+
+	
 	
 
 }

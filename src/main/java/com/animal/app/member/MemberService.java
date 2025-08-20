@@ -6,9 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+
+// 메서드 실행을 하나의 트랜잭션으로 묶어주는 어노테이션
+// 여러 DAO 작업이 수행되더라도 모두 성공하면 커밋, 하나라도 에러나면 롤백시켜줌
 @Transactional(rollbackFor = Exception.class)
 public class MemberService {
 
@@ -56,9 +60,37 @@ public class MemberService {
 	
 	// hasMemberError
 	// 검증 메서드
+	// 이미 사용중인 아이디인지 검사
 	// 입력한 비밀번호 두 개가 같은지 검사
-	
-	
+	public boolean hasMemberError(MemberVO memberVO, BindingResult bindingResult) throws Exception {
+		
+		// check 값이 true이면 검증 실패
+		// check 값이 false이면 검증 통과
+		boolean check = false;
+		
+		// 1. Annotation 검증
+		check = bindingResult.hasErrors();
+		
+		// 2. 사용자 정의로 패스워드가 일치하는지 검사
+		// 입력한 비밀번호가 같지 않으면 true
+		if(!memberVO.getMemberPassword().equals(memberVO.getPasswordCheck())) {
+			check = true;
+			bindingResult.rejectValue("passwordCheck", "member.password.notEqual"); // member.password.notEqual : "비밀번호가 일치하지 않습니다" 라는 메세지 출력 됨
+		}
+		
+		// 3. ID 중복 검사
+		MemberVO result = memberDAO.login(memberVO);
+		
+		// result가 null이 아니라면 ID가 중복임
+		if(result != null) {
+			check = true;
+		bindingResult.rejectValue("memberId", "member.id.equal");  // member.id.equal : "이미 사용중인 아이디입니다"라는 메세지가 출력 됨 
+		}
+		
+		// 같으면 check를 리턴
+		return check;
+		
+	}
 	
 	
 	// Login
@@ -72,17 +104,10 @@ public class MemberService {
 		return null;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// update(정보 수정)
+	public int update(MemberVO memberVO) throws Exception {
+		return memberDAO.update(memberVO);
+	}
 	
 	
 	
