@@ -60,7 +60,7 @@
 	<update id="update" parameterType="MemberVO">
 		UPDATE MEMBER
 		SET memberName = #{memberName}, memberPhone = #{memberPhone}, memberEmail = #{memberEmail}
-		WHERE memberId = #{memberId}
+		WHERE memberNo = #{memberNo}
 	</update>
 	
 	
