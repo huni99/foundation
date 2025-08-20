@@ -15,7 +15,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 			<!-- Contents Start -->
-			<div id="content" style="border-style:solid;  width:60%; margin-left:100px; margin-top:50px">
+			<div id="content" style="margin:100px auto;" class="w-75">
 				<div id="content-wrapper" class="d-flex flex-column">
 					<form:form method="post" modelAttribute="memberVO" enctype="multipart/form-data">
 							<h2>회원가입</h2>
@@ -67,7 +67,7 @@
 						  </div>
 							  
 						  
-						  <div>
+						  <div class="mb-4">
 						  	<button type="submit" class="btn btn-primary">회원가입</button>
 						  </div>
 					</form:form>
