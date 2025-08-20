@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
+  <mapper namespace="com.animal.app.member.MemberDAO">
+  
+  
+  <!-- Join(회원가입) -->
+<!--   <insert id="join" parameterType="MemberVO">
+  	INSERT INTO MEMBER
+  	VALUES (#{memberNo}, #{memberId}, #{memberPassword}, #{memberPhone}, #{memberEmail}, #{memberName}, #{memberRole} )
+  </insert> -->
+  
+  
+  <!-- 프로필 insert -->
+
+  
+  
+  <!-- Login(로그인) -->
+  
+  
+  
+  </mapper>
