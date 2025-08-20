@@ -5,21 +5,68 @@
   
   <!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
   <mapper namespace="com.animal.app.member.MemberDAO">
+  	<resultMap type="MemberVO" id="loginResult">
+  		<id column="MEMBERNO" property="memberNo"/>
+  		<result column="MEMBERID" property="memberId"/>
+  		<result column="MEMBERPASSWORD" property="memberPassword"/>
+  		<result column="MEMBERPHONE" property="memberPhone"/>
+  		<result column="MEMBEREMAIL" property="memberEmail"/>
+  		<result column="MEMBERNAME" property="memberName"/>
+  		<result column="MEMBERROLE" property="memberRole"/>
+  		
+  		<association property="profileVO" javaType="ProfileVO">
+  			<result column="ORI_NAME" property="oriName"/>
+  			<result column="SAVE_NAME" property="saveName"/>
+  		</association>
+  	
+  	</resultMap>
   
   
-  <!-- Join(회원가입) -->
-<!--   <insert id="join" parameterType="MemberVO">
-  	INSERT INTO MEMBER
-  	VALUES (#{memberNo}, #{memberId}, #{memberPassword}, #{memberPhone}, #{memberEmail}, #{memberName}, #{memberRole} )
-  </insert> -->
-  
-  
-  <!-- 프로필 insert -->
+	<!-- Join(회원가입) -->
+	<insert id="join" parameterType="MemberVO" useGeneratedKeys="true" keyProperty="memberNo">
+	 	INSERT INTO MEMBER
+	 	VALUES (null, #{memberId}, #{memberPassword}, #{memberPhone}, #{memberEmail}, #{memberName}, #{memberRole} )
+	 </insert> 
+	 
+	 
+	 <!-- 프로필 insert -->
+	 <insert id="profileInsert" parameterType="ProfileVO">
+	 	INSERT INTO MEMBER_PROFILE
+	 	VALUES (#{memberNo}, #{oriName}, #{saveName})
+	 </insert>
+	
+	<!-- Login(로그인) -->
+	<select id="login" parameterType="MemberVO" resultMap="loginResult">
+		SELECT * FROM MEMBER
+	    WHERE memberId = #{memberId}
+	</select>
 
-  
-  
-  <!-- Login(로그인) -->
-  
-  
-  
+	<!-- Update(정보 수정) -->
+	<update id="update" parameterType="MemberVO">
+		UPDATE MEMBER
+		SET memberName = #{memberName}, memberPhone = #{memberPhone}, memberEmail = #{memberEmail}
+		WHERE memberId = #{memberId}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
   </mapper>

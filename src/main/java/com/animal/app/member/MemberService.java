@@ -3,7 +3,9 @@ package com.animal.app.member;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.animal.app.commons.FileManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -17,8 +19,17 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberService {
 
 	@Autowired
+    private FileManager fileManager;
+
+	@Autowired
 	private MemberDAO memberDAO;
+
+
+	@Value("${app.upload}")
+	private String upload;
 	
+	@Value("${app.member}")
+	private String all;
 
 	
 	// Join
@@ -36,6 +47,7 @@ public class MemberService {
 		// null이 아니면서 비어있지 않음
 		if(profile != null && !profile.isEmpty()) {
 			// 업로드된 파일을 서버에 저장하고, 저장된 파일명을 profileVO에 세팅
+			profileVO.setSaveName(fileManager.fileSave(upload+all, profile));
 			
 			// 사용자가 업로드한 파일의 원래 이름을 저장
 			profileVO.setOriName(profile.getOriginalFilename());
@@ -47,7 +59,7 @@ public class MemberService {
 		// 회원 권한 정보를 담을 Map 생성
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberId", memberVO.getMemberId());  // 가입한 회원 아이디
-		map.put("memberRole", 2);  // 기본 권한 번호(일반 회원 : 2)
+		map.put("memberRole", memberVO.getMemberRole()); 
 		
 		// 회원에게 기본 권한 부여
 		result = memberDAO.addRole(map);

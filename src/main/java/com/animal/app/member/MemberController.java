@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.animal.app.member.update.UpdateGroup;
 import com.animal.app.member.validation.AddGroup;
+import com.animal.app.member.validation.UpdateGroup;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -36,6 +36,13 @@ public class MemberController {
 	// 반드시 @Validated 또는 @Valid가 붙은 객체 바로 뒤에 선언해야 됨 -> 해당 객체의 결과가 bindingResult에 바인딩 됨
 	@PostMapping("join")
 	public String join(@Validated({AddGroup.class, UpdateGroup.class}) MemberVO memberVO, BindingResult bindingResult ,MultipartFile profile) throws Exception {
+		
+		// 권한 변환: ADMIN → 1, USER → 2
+	    if("ADMIN".equals(memberVO.getMemberRoleStr())) {
+	        memberVO.setMemberRole(1);
+	    } else {
+	        memberVO.setMemberRole(2);
+	    }
 		
 		// Service 쪽에서 MemberVO와 BindingResult를 검증
 		boolean check = memberService.hasMemberError(memberVO, bindingResult);

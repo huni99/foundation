@@ -1,7 +1,7 @@
 package com.animal.app.member;
 
-import com.animal.app.member.update.UpdateGroup;
 import com.animal.app.member.validation.AddGroup;
+import com.animal.app.member.validation.UpdateGroup;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -41,7 +41,9 @@ public class MemberVO {
 	@NotBlank(groups = {AddGroup.class, UpdateGroup.class})
 	private String memberName;
 	
-	private String memberRole;
+	private String memberRoleStr; // form에서 받은 ADMIN/USER
+	private int memberRole;        // DB에 저장할 값 1/2
+
 	
 	
 	
