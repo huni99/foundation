@@ -26,13 +26,14 @@
 			<ul class="dropdown-menu dropdown-menu-end"
 				aria-labelledby="navbarDropdown">
 				<c:if test="${empty member}">
-					<li><a class="dropdown-item" href="/member/join">Join</a></li>
-					<li><a class="dropdown-item" href="/member/login">Login</a></li>
+					<li><a class="dropdown-item" href="/member/join">회원가입</a></li>
+					<li><a class="dropdown-item" href="/member/login">로그인</a></li>
 
 				</c:if>
 				<c:if test="${not empty member }">
 					<li><hr class="dropdown-divider" /></li>
-					<li><a class="dropdown-item" href="/member/logout">Logout</a></li>
+					<li><a class="dropdown-item" href="/member/detail">마이페이지</a></li>
+					<li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
 				</c:if>
 
 			</ul></li>

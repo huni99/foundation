@@ -37,6 +37,13 @@ public class MemberController {
 	@PostMapping("join")
 	public String join(@Validated({AddGroup.class, UpdateGroup.class}) MemberVO memberVO, BindingResult bindingResult ,MultipartFile profile) throws Exception {
 		
+		// 권한 변환: ADMIN → 1, USER → 2
+	    if("ADMIN".equals(memberVO.getMemberRoleStr())) {
+	        memberVO.setMemberRole(1);
+	    } else {
+	        memberVO.setMemberRole(2);
+	    }
+		
 		// Service 쪽에서 MemberVO와 BindingResult를 검증
 		boolean check = memberService.hasMemberError(memberVO, bindingResult);
 		

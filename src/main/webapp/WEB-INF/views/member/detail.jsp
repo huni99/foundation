@@ -14,6 +14,13 @@
 		<div id="layoutSidenav_content">
 			<main>
 			<!-- Contents Start -->
+			<div class="alert alert-primary" role="alert">
+					<div>
+					<img class="img-profile rounded-circle"	src="/files/member/${member.profileVO.saveName }">
+					</div>
+					<div>${member.memberName }</div>
+					<div>${member.memberPhone }</div>
+					<div>${member.memberEmail }</div>
 			
 			</main>
 			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>

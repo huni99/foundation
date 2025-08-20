@@ -5,21 +5,83 @@
   
   <!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
   <mapper namespace="com.animal.app.member.MemberDAO">
+  	<resultMap type="MemberVO" id="loginResult">
+  		<id column="MEMBER_NO" property="memberNo"/>
+  		<result column="MEMBER_ID" property="memberId"/>
+  		<result column="MEMBER_PASSWORD" property="memberPassword"/>
+  		<result column="MEMBER_PHONE" property="memberPhone"/>
+  		<result column="MEMBER_EMAIL" property="memberEmail"/>
+  		<result column="MEMBER_NAME" property="memberName"/>
+  		<result column="MEMBER_ROLE" property="memberRole"/>
+  		
+  		<association property="profileVO" javaType="ProfileVO">
+  			<result column="ORI_NAME" property="oriName"/>
+  			<result column="SAVE_NAME" property="saveName"/>
+  		</association>
+  	
+  	</resultMap>
   
   
-  <!-- Join(회원가입) -->
-<!--   <insert id="join" parameterType="MemberVO">
-  	INSERT INTO MEMBER
-  	VALUES (#{memberNo}, #{memberId}, #{memberPassword}, #{memberPhone}, #{memberEmail}, #{memberName}, #{memberRole} )
-  </insert> -->
-  
-  
-  <!-- 프로필 insert -->
+	<!-- Join(회원가입) -->
+	<insert id="join" parameterType="MemberVO" useGeneratedKeys="true" keyProperty="memberNo" keyColumn="MEMBER_NO">
+	 	INSERT INTO MEMBER
+	 	VALUES (null, #{memberId}, #{memberPassword}, #{memberPhone}, #{memberEmail}, #{memberName}, #{memberRole} )
+	 </insert> 
+	 
+	 
+	 <!-- 프로필 insert -->
+	 <insert id="profileInsert" parameterType="ProfileVO">
+	 	INSERT INTO MEMBER_PROFILE
+	 	VALUES (#{memberNo}, #{oriName}, #{saveName})
+	 </insert>
+	 
+	 <!-- 권한 업데이트 (addRole) -->
+  <update id="addRole" parameterType="map">
+    UPDATE MEMBER
+       SET MEMBER_ROLE = #{memberRole}
+     WHERE MEMBER_ID   = #{memberId}
+  </update>
+	
+	<!-- Login(로그인) -->
+	  <select id="login" parameterType="MemberVO" resultMap="loginResult">
+        SELECT 
+            M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_PASSWORD, M.MEMBER_PHONE, M.MEMBER_EMAIL, M.MEMBER_NAME, M.MEMBER_ROLE,
+            P.ORI_NAME, P.SAVE_NAME
+        FROM 
+            MEMBER M
+        LEFT JOIN 
+            MEMBER_PROFILE P ON M.MEMBER_NO
+             = P.MEMBER_NO
+        WHERE 
+            M.MEMBER_ID = #{memberId}
+    </select>
 
-  
-  
-  <!-- Login(로그인) -->
-  
-  
-  
+	<!-- Update(정보 수정) -->
+	<update id="update" parameterType="MemberVO">
+		UPDATE MEMBER
+		SET memberName = #{memberName}, memberPhone = #{memberPhone}, memberEmail = #{memberEmail}
+		WHERE memberId = #{memberId}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
   </mapper>

@@ -3,7 +3,9 @@ package com.animal.app.member;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.animal.app.commons.FileManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,14 @@ public class MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 	
+	@Autowired
+    private FileManager fileManager;
+
+	@Value("${app.upload}")
+	private String upload;
+	
+	@Value("${app.member}")
+	private String all;
 
 	
 	// Join
@@ -28,7 +38,7 @@ public class MemberService {
 		
 		// 프로필 정보(ProfileVO) 객체 생성(초기값은 기본 이미지)
 		ProfileVO profileVO = new ProfileVO();
-		profileVO.setMemberId(memberVO.getMemberId());  // 가입한 회원 아이디 저장
+		profileVO.setMemberNo(memberVO.getMemberNo());  // 가입한 회원 아이디 저장
 		profileVO.setSaveName("default.jpg");  // 기본 저장 파일명
 		profileVO.setOriName("default.jpg");  // 기본 원본 파일명
 		
@@ -36,6 +46,7 @@ public class MemberService {
 		// null이 아니면서 비어있지 않음
 		if(profile != null && !profile.isEmpty()) {
 			// 업로드된 파일을 서버에 저장하고, 저장된 파일명을 profileVO에 세팅
+			profileVO.setSaveName(fileManager.fileSave(upload+all, profile));
 			
 			// 사용자가 업로드한 파일의 원래 이름을 저장
 			profileVO.setOriName(profile.getOriginalFilename());
@@ -47,7 +58,7 @@ public class MemberService {
 		// 회원 권한 정보를 담을 Map 생성
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberId", memberVO.getMemberId());  // 가입한 회원 아이디
-		map.put("memberRole", 2);  // 기본 권한 번호(일반 회원 : 2)
+		map.put("memberRole", memberVO.getMemberRole()); 
 		
 		// 회원에게 기본 권한 부여
 		result = memberDAO.addRole(map);
@@ -74,7 +85,7 @@ public class MemberService {
 		// 입력한 비밀번호가 같지 않으면 true
 		if(!memberVO.getMemberPassword().equals(memberVO.getPasswordCheck())) {
 			check = true;
-			bindingResult.rejectValue("passwordCheck", "member.password.notEqual"); // member.password.notEqual : "비밀번호가 일치하지 않습니다" 라는 메세지 출력 됨
+			bindingResult.rejectValue("passwordCheck", "", "비밀번호가 일치하지 않습니다"); 
 		}
 		
 		// 3. ID 중복 검사
@@ -83,7 +94,7 @@ public class MemberService {
 		// result가 null이 아니라면 ID가 중복임
 		if(result != null) {
 			check = true;
-		bindingResult.rejectValue("memberId", "member.id.equal");  // member.id.equal : "이미 사용중인 아이디입니다"라는 메세지가 출력 됨 
+		bindingResult.rejectValue("memberId", "", "이미 사용중인 아이디입니다");  // member.id.equal : "이미 사용중인 아이디입니다"라는 메세지가 출력 됨 
 		}
 		
 		// 같으면 check를 리턴
