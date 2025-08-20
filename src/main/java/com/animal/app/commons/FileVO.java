@@ -1,11 +1,10 @@
 package com.animal.app.commons;
 
-import com.animal.app.member.MemberVO;
 
 import lombok.Data;
 
 @Data
-public class FileVO extends MemberVO {
+public class FileVO {
 	
 	private String oriName;
 	private String saveName;

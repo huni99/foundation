@@ -28,15 +28,12 @@
 						</thead>
 						<tbody>
 							<c:forEach var="l" items="${dog}">
-							
-							<a href="./detail?dogNo=${l.dogNo}">
-							<tr>
+							<tr onclick="location.href='./detail?dogNo=${l.dogNo}'" style="cursor:pointer;">
 								<th scope="row">${l.dogName}</th>
 								<td>${l.dogBirth}</td>
 								<td>${l.dogGender}</td>
 								<td>${l.dogType}</td>
 							</tr>
-							</a>
 						</c:forEach>
 						</tbody>
 					</table>

@@ -22,11 +22,19 @@ public class DogController {
 	}
 	
 	@GetMapping("add")
-	public void insert() {
+	public void insert(DogVO dogVO) {
 		
 	}
 	@PostMapping("add")
-	public void insert(DogVO dogVO , MultipartFile dogFile) {
+	public String insert(DogVO dogVO , MultipartFile dogFile) throws Exception{
+		
+		dogService.insert(dogVO,dogFile);
+		return "redirect:/dog/list";
+	}
+	@GetMapping("detail")
+	public void detail(DogVO dogVO,Model model)throws Exception{
+		dogVO=dogService.detail(dogVO);
+		model.addAttribute("dogVO",dogVO);
 		
 	}
 }

@@ -4,11 +4,43 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.animal.app.dog.DogDao">
-	
-	<select id="list" resultType="list" >
+	<resultMap type="DogVO" id="resultDog">
+		<id column="DOG_NO" property="dogNo"/>
+		<result column="DOG_NAME" property="dogName"/>
+		<result column="DOG_BIRTH" property="dogBirth"/>
+		<result column="DOG_GENDER" property="dogGender"/>
+		<result column="DOG_TYPE" property="dogType"/>
+		<result column="DOG_ACTIVE" property="dogActive"/>
+		<result column="DOG_INOCULATION" property="dogInoculation"/>
+		<result column="DOG_PRICE" property="dogPrice"/>
+		<result column="DOG_INFO" property="dogInfo"/>
+		<association property="dogFileVO" javaType="FileVO">
+			<result column="ORI_NAME" property="oriName"/>
+			<result column="SAVE_NAME" property="saveName"/>
+		</association>
+	</resultMap>
+	<select id="list" resultType="DogVO" >
 		SELECT * FROM DOG
-		
 	
 	</select>
-
+ 	<insert id="insert" parameterType="DogVO" useGeneratedKeys="true" keyProperty="dogNo">
+		INSERT INTO dog
+		VALUES(null,#{dogName},#{dogBirth},#{dogGender},#{dogType},true
+		,#{dogInoculation},#{dogPrice},#{dogInfo})
+	
+	</insert> 
+	<insert id="insertFile" parameterType="java.util.Map">
+		INSERT INTO DOG_PROFILE
+		VALUES(#{dogNo},#{oriName},#{saveName})
+	
+	</insert>
+	<select id="detail" parameterType="dogVO" resultMap="resultDog">
+		SELECT * from DOG
+		NATURAL JOIN DOG_PROFILE 
+		WHERE DOG_NO =#{dogNo}
+	
+	
+	
+	</select>
+	
 </mapper>

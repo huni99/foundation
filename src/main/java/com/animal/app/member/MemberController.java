@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.animal.app.member.update.UpdateGroup;
 import com.animal.app.member.validation.AddGroup;
+import com.animal.app.member.validation.UpdateGroup;
 
 import jakarta.servlet.http.HttpSession;
 

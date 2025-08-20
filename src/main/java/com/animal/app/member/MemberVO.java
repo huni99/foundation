@@ -1,7 +1,7 @@
 package com.animal.app.member;
 
-import com.animal.app.member.update.UpdateGroup;
 import com.animal.app.member.validation.AddGroup;
+import com.animal.app.member.validation.UpdateGroup;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
