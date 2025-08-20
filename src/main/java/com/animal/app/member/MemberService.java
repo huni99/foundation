@@ -19,11 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberService {
 
 	@Autowired
-    private FileManager fileManager;
-
-	@Autowired
 	private MemberDAO memberDAO;
-
+	
+	@Autowired
+    private FileManager fileManager;
 
 	@Value("${app.upload}")
 	private String upload;
@@ -39,7 +38,7 @@ public class MemberService {
 		
 		// 프로필 정보(ProfileVO) 객체 생성(초기값은 기본 이미지)
 		ProfileVO profileVO = new ProfileVO();
-		profileVO.setMemberId(memberVO.getMemberId());  // 가입한 회원 아이디 저장
+		profileVO.setMemberNo(memberVO.getMemberNo());  // 가입한 회원 아이디 저장
 		profileVO.setSaveName("default.jpg");  // 기본 저장 파일명
 		profileVO.setOriName("default.jpg");  // 기본 원본 파일명
 		
@@ -86,7 +85,7 @@ public class MemberService {
 		// 입력한 비밀번호가 같지 않으면 true
 		if(!memberVO.getMemberPassword().equals(memberVO.getPasswordCheck())) {
 			check = true;
-			bindingResult.rejectValue("passwordCheck", "member.password.notEqual"); // member.password.notEqual : "비밀번호가 일치하지 않습니다" 라는 메세지 출력 됨
+			bindingResult.rejectValue("passwordCheck", "", "비밀번호가 일치하지 않습니다"); 
 		}
 		
 		// 3. ID 중복 검사
@@ -95,7 +94,7 @@ public class MemberService {
 		// result가 null이 아니라면 ID가 중복임
 		if(result != null) {
 			check = true;
-		bindingResult.rejectValue("memberId", "member.id.equal");  // member.id.equal : "이미 사용중인 아이디입니다"라는 메세지가 출력 됨 
+		bindingResult.rejectValue("memberId", "", "이미 사용중인 아이디입니다");  // member.id.equal : "이미 사용중인 아이디입니다"라는 메세지가 출력 됨 
 		}
 		
 		// 같으면 check를 리턴
