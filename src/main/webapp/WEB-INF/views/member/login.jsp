@@ -8,15 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body class="sb-nav-fixed">
-	<c:import url="/WEB-INF/include/header.jsp"></c:import>
+	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 	<div id="layoutSidenav">
-		<c:import url="/WEB-INF/include/sidebar.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/sidebar.jsp"></c:import>
 		<div id="layoutSidenav_content">
 			<main>
 			<!-- Contents Start -->
 			
 			</main>
-			<c:import url="/WEB-INF/include/footer.jsp"></c:import>
+			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		</div>
 	</div>
 
