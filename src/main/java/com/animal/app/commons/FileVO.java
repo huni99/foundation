@@ -1,10 +1,15 @@
 package com.animal.app.commons;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class FileVO  {
 	
+	private Long memberNo;
 	private String oriName;
 	private String saveName;
 
