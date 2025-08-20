@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class ProfileVO extends FileVO {
 	
-	private String memberNo;
+	private String memberId;
 
 }
