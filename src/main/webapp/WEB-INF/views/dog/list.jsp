@@ -28,10 +28,18 @@
 						</thead>
 						<tbody>
 							<c:forEach var="l" items="${dog}">
-							<tr onclick="location.href='./detail?dogNo=${l.dogNo}'" style="cursor:pointer;">
+							<c:if test="${not empty member}">
+								<tr onclick="location.href='./detail?dogNo=${l.dogNo}'" style="cursor:pointer;">
+							</c:if>
+							<c:if test="${empty member}">
+							<tr>
+							</c:if>
 								<th scope="row">${l.dogName}</th>
 								<td>${l.dogBirth}</td>
-								<td>${l.dogGender}</td>
+								<td>
+								<c:if test="${l.dogGender eq 0}">남자</c:if>
+								<c:if test="${l.dogGender ne 0}">여자</c:if>
+								</td>
 								<td>${l.dogType}</td>
 							</tr>
 						</c:forEach>

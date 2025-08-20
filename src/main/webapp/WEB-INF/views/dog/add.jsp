@@ -25,7 +25,7 @@
 						<div class="mb-3">
 							<label for="dogBirth" class="form-label">유기견 생일</label> <input
 								type="date" name="dogBirth" id="dogBirth">
-							<form:errors path="dogName"></form:errors>
+							<form:errors path="dogBirth"></form:errors>
 						</div>
 						<div class="mb-3">
 							<label for="exampleInputEmail1" class="form-label">유기견 성별</label>
@@ -41,7 +41,8 @@
 						<div class="mb-3">
 							<label for="dogInoculation" class="form-label">유기견 예방 접종
 								유무</label>
-							<form:input path="dogInoculation" cssClass="form-control" />
+							<input type='radio' name='dogInoculation' value='1' checked />접종 O&nbsp;
+							<input type='radio' name='dogInoculation' value='0' />접종 X&nbsp;
 							<form:errors path="dogInoculation"></form:errors>
 						</div>
 						<div class="mb-3">
@@ -57,7 +58,7 @@
 						<div class="mb-3">
 							<label for="dogFile" class="form-label">파일 첨부</label>
 							<input type="file" name="dogFile" Class="form-control" />
-						
+								<form:errors path="dogFileVO"></form:errors>
 						</div>
 
 						<button type="submit" class="btn btn-primary">Submit</button>
