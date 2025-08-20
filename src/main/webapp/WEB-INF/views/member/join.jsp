@@ -64,6 +64,7 @@
 						  <div>
 							  <label for="file" class="form-label">File</label>
 							  <input type="file" class="" name="profile">
+							  <form:errors path="profileVO"></form:errors>
 						  </div>
 							  
 						  
