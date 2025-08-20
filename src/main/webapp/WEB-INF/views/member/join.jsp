@@ -32,7 +32,7 @@
 						  </div>
 						  <div class="mb-4">
 					  		<label for="passwordCheck" class="form-label">비밀번호 확인</label> 
-							<input type="password" class="form-control" name="passwordCheck"
+							<input type="password" class="form-control" name="passwordCheck" autocomplete="new-password"
 									id="passwordCheck" aria-describedby="passwordCheckHelp">
 						    <form:errors path="passwordCheck"></form:errors>
 						  </div>
