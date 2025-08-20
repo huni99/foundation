@@ -6,9 +6,7 @@
 		<div class="sb-sidenav-menu">
 			<div class="nav">
 				<div class="sb-sidenav-menu-heading">Contents</div>
-				<a class="nav-link collapsed" href="/dog/list" data-bs-toggle="collapse"
-					data-bs-target="#collapseLayouts" aria-expanded="false"
-					aria-controls="collapseLayouts">
+				<a class="nav-link collapsed" href="/dog/list">
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-columns"></i>
 					</div> 유기견 목록

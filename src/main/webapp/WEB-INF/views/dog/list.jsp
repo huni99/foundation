@@ -13,6 +13,7 @@
 		<c:import url="/WEB-INF/views/include/sidebar.jsp"></c:import>
 		<div id="layoutSidenav_content">
 			<main>
+				
 			</main>
 			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		</div>

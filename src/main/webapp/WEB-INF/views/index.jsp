@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body class="sb-nav-fixed">
 	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 	
 	<div id="layoutSidenav">
