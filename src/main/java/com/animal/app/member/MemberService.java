@@ -19,8 +19,7 @@ public class MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 	
-	@Autowired
-	private Transactional transactional;
+
 	
 	// Join
 	public int join(MemberVO memberVO, MultipartFile profile) throws Exception {

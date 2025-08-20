@@ -14,7 +14,6 @@ import com.animal.app.member.update.UpdateGroup;
 import com.animal.app.member.validation.AddGroup;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
