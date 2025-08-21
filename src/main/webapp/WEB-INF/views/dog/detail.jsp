@@ -61,6 +61,12 @@
 						</form>
 						<button id="btn-cart">즐겨찾기</button>
 						<button id="btn-adopt">입양하기</button>
+						<button id="btn-sponsor" data-dogno="${dogVO.dogNo}">후원하기</button>
+						<c:if test="${sessionScope.donationSuccess eq true}">
+						    <script>alert("후원되었습니다 🎉");</script>
+						    <c:remove var="donationSuccess" scope="session"/>
+						</c:if>
+						
 							
 					</div>
 				</div>
@@ -69,5 +75,6 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="/js/dog/dog_detail.js"></script>
+	<script type="text/javascript" src="/js/donation/donation.js"></script>
 </body>
 </html>
