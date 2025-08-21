@@ -68,7 +68,7 @@
 						  </div>
 							  
 						  
-						  <div class="mb-4">
+						  <div class="mt-4">
 						  	<button type="submit" class="btn btn-primary">회원가입</button>
 						  </div>
 					</form:form>

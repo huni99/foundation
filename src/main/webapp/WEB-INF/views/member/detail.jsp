@@ -16,15 +16,15 @@
 			<!-- Contents Start -->
 			<h2 style="text-align:center; margin-top:60px; font-size:50px">마이페이지</h2>
 			<div style="text-align:center;">
-				<img class="img-profile rounded-circle"	src="/files/member/${member.profileVO.saveName }" style="margin-top:50px; border-style:solid; border-width:0.5px; width:250px;">
+				<img class="img-profile rounded-circle"	src="/files/member/${member.profileVO.saveName }" style="margin-top:50px; border:0.5px solid; width:300px; height:300px; object-fit:cover; border-radius:50%;">
 			</div>
 			<div style="text-align:center; margin-top:30px; font-size:30px">${member.memberName }</div>
 			<div style="text-align:center; margin-top:30px; font-size:20px">${member.memberPhone }</div>
 			<div style="text-align:center; margin-top:30px; font-size:20px">${member.memberEmail }</div>
 			
 			<div class="mb-4" style="text-align:center; margin-top:50px;">
-				<input type="hidden" name="memberNo" value="${memberNo }">
-		  		<a type="submit" class="btn btn-primary" href="update?memberNo=${memberNo}">수정</a>
+				<input type="hidden" name="memberNo" value="${member.memberNo }">
+		  		<a type="submit" class="btn btn-primary" href="update?memberNo=${member.memberNo}">수정</a>
 		    </div>
 			
 			</main>

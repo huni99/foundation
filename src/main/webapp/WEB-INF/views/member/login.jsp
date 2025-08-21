@@ -14,15 +14,16 @@
 		<div id="layoutSidenav_content">
 			<main>
 			<!-- Contents Start -->
-			<div id="content">
+			<div id="content" style="margin:100px auto" class="w-75">
+			<h2>로그인</h2>
 				<form method="post" enctype="multipart/form-data">
-					<div class="mb-3">
+					<div class="mb-4">
 						 <label for="id" class="form-label">아이디</label>
 						 <input type="text" class="form-control" name="memberId">
 					</div>
-					<div class="mb-3">
+					<div class="mb-4">
 						 <label for="password" class="form-label">비밀번호</label>
-						 <input type="text" class="form-control" name="memberPassword">
+						 <input type="password" class="form-control" name="memberPassword">
 					</div>
 					
 					<button type="submit" class="btn btn-primary">로그인</button>
