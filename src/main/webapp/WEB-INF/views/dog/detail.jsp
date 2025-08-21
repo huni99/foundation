@@ -54,11 +54,20 @@
 					
 						</tbody>
 					</table>
+					<div>
+						<form id="frm">
+							<input id="value" type="hidden" value="${dogVO.dogNo}">
+							
+						</form>
+						<button id="btn-cart">즐겨찾기</button>
+						<button id="btn-adopt">입양하기</button>
+							
+					</div>
 				</div>
 			</main>
 			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		</div>
 	</div>
-
+	<script type="text/javascript" src="/js/dog/dog_detail.js"></script>
 </body>
 </html>

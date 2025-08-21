@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.animal.app.commons.FileManager;
+import com.animal.app.member.MemberVO;
 
 @Transactional(rollbackFor =Exception.class )
 @Service
@@ -40,8 +41,41 @@ public class DogService {
 		return result;
 	}
 
-	public DogVO detail(DogVO dogVO) {
+	public DogVO detail(DogVO dogVO)throws Exception {
 		return dogDao.detail(dogVO);
+	}
+
+	public List<DogVO> cartList(MemberVO memberVO) throws Exception{
+		return dogDao.cartList(memberVO);
+		
+	}
+
+	public int cartAdd(DogVO dogVO, MemberVO memberVO) throws Exception{
+		int result=0;
+		Map<String,Long> map= new HashMap<>();
+		map.put("dogNo", dogVO.getDogNo());
+		
+		map.put("memberNo", memberVO.getMemberNo());
+		List<DogVO> list=dogDao.cartList(memberVO);
+		if(list!=null && !list.isEmpty()) {
+			for(DogVO d : list) {
+				if(d.getDogNo()==dogVO.getDogNo())
+					return result;
+			}
+		}
+		
+		result=dogDao.cartAdd(map);
+		
+		
+		return result;
+	}
+
+	public int cartDelete(Long[] list, MemberVO memberVO)throws Exception {
+			Map<String, Object> map = new HashMap<>();
+			map.put("memberNo", memberVO.getMemberNo());
+			map.put("dogNo", list);
+			
+		return dogDao.cartDelete(map);
 	}
 	
 }

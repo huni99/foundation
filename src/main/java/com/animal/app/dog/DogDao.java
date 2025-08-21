@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.animal.app.member.MemberVO;
+
 @Mapper
 public interface DogDao {
 
@@ -14,6 +16,12 @@ public interface DogDao {
 
 	public int insertFile(Map<String,Object> map)throws Exception;
 
-	public DogVO detail(DogVO dogVO);
+	public DogVO detail(DogVO dogVO)throws Exception;
+
+	public List<DogVO> cartList(MemberVO memberVO)throws Exception;
+
+	public int cartAdd(Map<String, Long> map)throws Exception;
+
+	public int cartDelete(Map<String, Object> map) throws Exception;
 	
 }
