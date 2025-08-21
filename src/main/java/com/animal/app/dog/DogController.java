@@ -22,6 +22,8 @@ import jakarta.validation.Valid;
 @RequestMapping(value="/dog/*")
 public class DogController {
 	@Autowired
+	private KakaoPayService payService;
+	@Autowired
 	private DogService dogService;
 	@GetMapping("list")
 	public void list (Model model)throws Exception {
@@ -71,6 +73,15 @@ public class DogController {
 		
 		return result;
 		
+	}
+	
+	@ResponseBody
+	@PostMapping("adopt")
+	public KakaoPayReadyVO dogAdopt(HttpSession session ,DogVO dogVO)throws Exception {
+		System.out.println(dogVO.getDogNo());
+		MemberVO memberVO= (MemberVO)session.getAttribute("member");
+		KakaoPayReadyVO res = payService.kakaoPay(memberVO,dogVO);
+		return res;
 	}
 	
 	
