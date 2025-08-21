@@ -107,16 +107,26 @@ public class MemberController {
 			return "member/memberUpdate";
 		}
 		
+		// 세션에서 로그인 사용자 정보 가져오기
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		memberVO.setMemberId(member.getMemberId());
+		memberVO.setMemberNo(member.getMemberNo());  // PK(MEMBER_NO) 세팅
+		memberVO.setMemberId(member.getMemberId());  // ID도 세팅
 		
-		int result = memberService.update(memberVO);
+		// DB update 시도
+		int result = memberService.update(memberVO, profile);
+		
+		// 성공 시 세션 갱신
+//		if (result > 0) {
+//			memberVO.setMemberPassword(member.getMemberPassword());
+//			memberVO = memberService.login(memberVO);
+//			session.setAttribute("member", memberVO);
+//		}
 		
 		if (result > 0) {
-			memberVO.setMemberPassword(member.getMemberPassword());
-			memberVO = memberService.login(memberVO);
-			session.setAttribute("member", memberVO);
+		    MemberVO newMember = memberService.detail(memberVO.getMemberNo());
+		    session.setAttribute("member", newMember);
 		}
+
 		
 		return "redirect:./detail";
 		

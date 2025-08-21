@@ -59,12 +59,27 @@
 	<!-- Update(정보 수정) -->
 	<update id="update" parameterType="MemberVO">
 		UPDATE MEMBER
-		SET memberName = #{memberName}, memberPhone = #{memberPhone}, memberEmail = #{memberEmail}
-		WHERE memberNo = #{memberNo}
+		SET MEMBER_NAME = #{memberName}, MEMBER_PHONE = #{memberPhone}, MEMBER_EMAIL = #{memberEmail}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- updateProfile(프로필 수정) -->
+	<update id="updateProfile" parameterType="ProfileVO">
+		UPDATE MEMBER_PROFILE
+		SET SAVE_NAME = #{saveName}, ORI_NAME = #{oriName}
+		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
 	
-	
+	<!-- Detail(회원 상세) -->
+	<select id="detail" parameterType="long" resultType="MemberVO">
+		SELECT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_PASSWORD, M.MEMBER_NAME, M.MEMBER_PHONE, M.MEMBER_EMAIL,
+           P.SAVE_NAME AS "profileVO.saveName",
+           P.ORI_NAME  AS "profileVO.oriName"
+    FROM MEMBER M
+    LEFT JOIN MEMBER_PROFILE P ON M.MEMBER_NO = P.MEMBER_NO
+    WHERE M.MEMBER_NO = #{memberNo}
+	</select>
 	
 	
 	
