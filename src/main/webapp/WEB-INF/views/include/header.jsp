@@ -31,7 +31,6 @@
 
 				</c:if>
 				<c:if test="${not empty member }">
-					<li><hr class="dropdown-divider" /></li>
 					<li><a class="dropdown-item" href="/member/detail">마이페이지</a></li>
 					<li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
 				</c:if>

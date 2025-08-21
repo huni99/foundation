@@ -64,10 +64,11 @@
 						  <div>
 							  <label for="file" class="form-label">File</label>
 							  <input type="file" class="" name="profile">
+							  <form:errors path="profileVO"></form:errors>
 						  </div>
 							  
 						  
-						  <div class="mb-4">
+						  <div class="mt-4">
 						  	<button type="submit" class="btn btn-primary">회원가입</button>
 						  </div>
 					</form:form>

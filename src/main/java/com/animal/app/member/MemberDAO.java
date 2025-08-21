@@ -24,6 +24,12 @@ public interface MemberDAO {
 	
 	// update(정보 수정)
 	public int update(MemberVO memberVO) throws Exception;
+	
+	// updateProfile(프로필 수정)
+	public int updateProfile(ProfileVO profileVO) throws Exception;
+	
+	// detail(회원 상세 조회)
+	public MemberVO detail(Long memberVO) throws Exception;
 
 	
 	

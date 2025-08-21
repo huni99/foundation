@@ -11,6 +11,6 @@ import lombok.ToString;
 @ToString
 public class ProfileVO extends FileVO {
 	
-	private String memberId;
+	private Long mamberNo;
 
 }

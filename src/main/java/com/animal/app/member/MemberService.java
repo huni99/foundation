@@ -115,9 +115,53 @@ public class MemberService {
 	}
 	
 	// update(정보 수정)
-	public int update(MemberVO memberVO) throws Exception {
-		return memberDAO.update(memberVO);
+	public int update(MemberVO memberVO, MultipartFile profile) throws Exception {
+		int result =  memberDAO.update(memberVO);
+		
+		//프로필 이미지가 업로드되었을 경우
+		if (profile != null && !profile.isEmpty()) {
+			// 파일 저장
+			String fileName = fileManager.fileSave(upload+all, profile);
+			
+			// ProfileVO 생성
+			ProfileVO profileVO = new ProfileVO();
+			profileVO.setMemberNo(memberVO.getMemberNo());  // 가입한 회원 아이디 저장
+			profileVO.setSaveName(fileName);  // 실제 저장된 파일명 사용
+			profileVO.setOriName(profile.getOriginalFilename());  // 원본 파일명 사용
+			
+			// DB 반영
+			memberDAO.updateProfile(profileVO);
+			
+		}
+		
+		return result;
+			
 	}
+
+
+	// detail(회원 상세 조회)
+	public MemberVO detail(Long memberVO) throws Exception {
+		return memberDAO.detail(memberVO);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
