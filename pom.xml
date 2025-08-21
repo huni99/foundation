@@ -112,8 +112,14 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-	</dependencies>
+		<!-- 카카오 API 응답(vo 매핑을 위해 필요) -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		</dependency>
 
+
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>

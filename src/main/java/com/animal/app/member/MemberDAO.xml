@@ -76,27 +76,10 @@
 		SELECT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_PASSWORD, M.MEMBER_NAME, M.MEMBER_PHONE, M.MEMBER_EMAIL,
            P.SAVE_NAME AS "profileVO.saveName",
            P.ORI_NAME  AS "profileVO.oriName"
-    FROM MEMBER M
-    LEFT JOIN MEMBER_PROFILE P ON M.MEMBER_NO = P.MEMBER_NO
-    WHERE M.MEMBER_NO = #{memberNo}
+	    FROM MEMBER M
+	    LEFT JOIN MEMBER_PROFILE P ON M.MEMBER_NO = P.MEMBER_NO
+	    WHERE M.MEMBER_NO = #{memberNo}
 	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
   </mapper>
