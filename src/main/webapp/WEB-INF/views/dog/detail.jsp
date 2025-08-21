@@ -26,6 +26,7 @@
 								<th scope="col">예방접종 여부</th>
 								<th scope="col">입양가격</th>
 								<th scope="col">사진</th>
+								<th scope="col">총 후원 금액</th>
 								
 							</tr>
 							
@@ -46,6 +47,7 @@
 								</td>
 								<td>${dogVO.dogPrice}</td>
 								<td><img src="/files/dog/${dogVO.dogFileVO.saveName}" style="width:100px;height:100px;"></td>
+								<td></td>
 							</tr>
 							<tr>
 								<td>비고</td>
