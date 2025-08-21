@@ -1,7 +1,10 @@
 package com.animal.app.donation;
 
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
 public interface DonationDAO {
 	
-	int insertDanaion(DonationVO donationVO) throws Exception;
+	int insertDonation(DonationVO donationVO) throws Exception;
 
 }

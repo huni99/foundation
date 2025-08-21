@@ -1,6 +1,7 @@
 package com.animal.app.donation;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import lombok.Data;
 
@@ -14,6 +15,6 @@ public class DonationVO {
     private String tid;
     private int amount;
     private String status;
-    private Date approvedAt;
+    private Date aprovedAt;
 
 }

@@ -1,5 +1,8 @@
 package com.animal.app.donation;
 
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +18,9 @@ import lombok.RequiredArgsConstructor;
 public class DonationService {
 
     private final RestTemplate restTemplate = new RestTemplate();
+    
+    @Autowired
+    private DonationDAO donationDAO;
 
     @Value("${kakao.pay.host}")
     private String host;
@@ -28,7 +34,7 @@ public class DonationService {
     /**
      * ✅ 결제 준비 (결제창 호출)
      */
-    public KakaoPayReadyResponseVO ready(Long memberNo, Long dogNo) {
+    public KakaoPayReadyResponseVO ready(Long memberNo, Long dogNo) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + adminKey);
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -37,7 +43,7 @@ public class DonationService {
         params.add("cid", cid);
         params.add("partner_order_id", "order_" + dogNo);
         params.add("partner_user_id", "member_" + memberNo);
-        params.add("item_name", "유기견 후원");
+        params.add("item_name", " ");
         params.add("quantity", "1");
         params.add("total_amount", "5000"); // 고정 후원 금액
         params.add("tax_free_amount", "0");
@@ -64,7 +70,7 @@ public class DonationService {
     /**
      * ✅ 결제 승인 (DB 저장 포함)
      */
-    public KakaoPayApproveResponseVO approve(Long memberNo, Long dogNo, String tid, String pgToken) {
+    public KakaoPayApproveResponseVO approve(Long memberNo, Long dogNo, String tid, String pgToken) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + adminKey);
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -85,8 +91,18 @@ public class DonationService {
         );
 
         // ✅ 결제 성공 시 DB 저장
-        // 예: donationMapper.insertDonation(memberNo, dogNo, response.getAmount().getTotal());
+     // 2. DB 저장할 DonationVO 생성
+        DonationVO donationVO = new DonationVO();
+        donationVO.setMemberNo(memberNo);
+        donationVO.setDogNo(dogNo);
+        donationVO.setTid(tid);
+        donationVO.setAmount(response.getAmount().getTotal()); // 결제 금액
+        donationVO.setStatus("APPROVED");  // 상태값
+        donationVO.setAprovedAt(new Date()); // 현재시간 저장
 
+        // 3. DB INSERT
+        donationDAO.insertDonation(donationVO);
+        
         return response;
     }
 

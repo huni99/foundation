@@ -16,10 +16,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DonationController {
 	
+	
 	private final DonationService donationService;
 
 	@GetMapping("/ready")
-	public String ready(@RequestParam("dogNo") Long dogNo, HttpSession session) {
+	public String ready(@RequestParam("dogNo") Long dogNo, HttpSession session) throws Exception {
 	    MemberVO member = (MemberVO) session.getAttribute("member");
 	    KakaoPayReadyResponseVO response = donationService.ready(member.getMemberNo(), dogNo);
 
@@ -34,7 +35,7 @@ public class DonationController {
 	@GetMapping("/success")
 	public String success(@RequestParam("pg_token") String pgToken,
 	                      @RequestParam("dogNo") Long dogNo,
-	                      HttpSession session) {
+	                      HttpSession session) throws Exception {
 	    MemberVO member = (MemberVO) session.getAttribute("member");
 	    String tid = (String) session.getAttribute("tid");
 
@@ -55,12 +56,12 @@ public class DonationController {
 
 
     @GetMapping("/cancel")
-    public String cancel() {
+    public String cancel() throws Exception {
         return "redirect:/"; // 취소 시 홈으로
     }
 
     @GetMapping("/fail")
-    public String fail() {
+    public String fail() throws Exception {
         return "redirect:/"; // 실패 시 홈으로
     }
 	
