@@ -77,5 +77,10 @@ public class DogService {
 			
 		return dogDao.cartDelete(map);
 	}
+
+	public int delete(Long item_name)throws Exception {
+		
+		return dogDao.delete(item_name);
+	}
 	
 }

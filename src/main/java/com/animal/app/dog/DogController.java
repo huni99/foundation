@@ -3,12 +3,14 @@ package com.animal.app.dog;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,13 +18,14 @@ import com.animal.app.member.MemberVO;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 
 @Controller
 @RequestMapping(value="/dog/*")
+@RequiredArgsConstructor
 public class DogController {
-	@Autowired
-	private KakaoPayService payService;
+	private final KakaoService payService;
 	@Autowired
 	private DogService dogService;
 	@GetMapping("list")
@@ -78,12 +81,33 @@ public class DogController {
 	@ResponseBody
 	@PostMapping("adopt")
 	public KakaoPayReadyVO dogAdopt(HttpSession session ,DogVO dogVO)throws Exception {
-		System.out.println(dogVO.getDogNo());
 		MemberVO memberVO= (MemberVO)session.getAttribute("member");
 		KakaoPayReadyVO res = payService.kakaoPay(memberVO,dogVO);
 		return res;
 	}
 	
+	@GetMapping("success")
+	public String Success(@RequestParam("pg_token") String pgToken ,Model model)throws Exception{
+		KakaoApproveResponse res = payService.kakaoPayApprove(pgToken);
+		int result= dogService.delete(Long.parseLong(res.getItem_name()));
+
+		model.addAttribute("url","/dog/list");
+		model.addAttribute("msg","결제 완료 ");
+		
+		return "/dog/result";
+	}
+	@GetMapping("fail")
+	public String fail(Model model) {
+		model.addAttribute("url","/dog/list");
+		model.addAttribute("msg","결제 실패 ");
+		return "/dog/result";
+	}
+	@GetMapping("cancel")
+	public String cancel(Model model) {
+		model.addAttribute("url","/dog/list");
+		model.addAttribute("msg","결제 취소 ");
+		return "/dog/result";
+	}
 	
 	
 	

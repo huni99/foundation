@@ -23,5 +23,7 @@ public interface DogDao {
 	public int cartAdd(Map<String, Long> map)throws Exception;
 
 	public int cartDelete(Map<String, Object> map) throws Exception;
+
+	public int delete(Long item_name)throws Exception;
 	
 }
