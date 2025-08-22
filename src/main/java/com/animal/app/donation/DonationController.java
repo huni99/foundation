@@ -1,13 +1,10 @@
 package com.animal.app.donation;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.animal.app.dog.DogService;
-import com.animal.app.dog.DogVO;
 import com.animal.app.member.MemberVO;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,10 +20,11 @@ public class DonationController {
 
 	@GetMapping("/ready")
 	public String ready(@RequestParam("dogNo") Long dogNo, HttpSession session) throws Exception {
+		// 현재 로그인한 회원 정보(member)와 선택한 강아지 번호(dogNo)를 기반으로 DonationService.ready() 호출
 	    MemberVO member = (MemberVO) session.getAttribute("member");
 	    KakaoPayReadyResponseVO response = donationService.ready(member.getMemberNo(), dogNo);
 
-	    // ✅ tid 저장 (approve에서 사용해야 함)
+	    // tid 저장 (approve에서 사용해야 함)
 	    session.setAttribute("tid", response.getTid());
 
 	    // 카카오페이 결제창으로 redirect
@@ -34,6 +32,7 @@ public class DonationController {
 	}
 
 
+	// 결제 성공
 	@GetMapping("/success")
 	public String success(@RequestParam("pg_token") String pgToken, @RequestParam("dogNo") Long dogNo, HttpSession session) throws Exception {
 	    MemberVO member = (MemberVO) session.getAttribute("member");
@@ -53,39 +52,17 @@ public class DonationController {
 	}
 
 
-
-
+	// 결제 취소
     @GetMapping("/cancel")
     public String cancel() throws Exception {
         return "redirect:/"; // 취소 시 홈으로
     }
 
+    // 결제 실패
     @GetMapping("/fail")
     public String fail() throws Exception {
         return "redirect:/"; // 실패 시 홈으로
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 	
 
 }
