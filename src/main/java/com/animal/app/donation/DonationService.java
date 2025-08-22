@@ -17,23 +17,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DonationService {
 
+	// 카카오페이 API 서버와 HTTP 통신을 담당
     private final RestTemplate restTemplate = new RestTemplate();
     
     @Autowired
     private DonationDAO donationDAO;
 
+    // API 기본 주소
     @Value("${kakao.pay.host}")
     private String host;
 
+    // 카카오페이 가맹점 코드
     @Value("${kakao.pay.cid}")
     private String cid;
 
+    // 카카오 관리자 키
     @Value("${kakao.pay.admin-key}")
     private String adminKey;
 
-    /**
-     * ✅ 결제 준비 (결제창 호출)
-     */
+    // 결제 준비(결제창 호출)
     public KakaoPayReadyResponseVO ready(Long memberNo, Long dogNo) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + adminKey);
@@ -43,7 +45,7 @@ public class DonationService {
         params.add("cid", cid);
         params.add("partner_order_id", "order_" + dogNo);
         params.add("partner_user_id", "member_" + memberNo);
-        params.add("item_name", " ");
+        params.add("item_name", "후원");
         params.add("quantity", "1");
         params.add("total_amount", "5000"); // 고정 후원 금액
         params.add("tax_free_amount", "0");
@@ -67,9 +69,7 @@ public class DonationService {
         return response;
     }
 
-    /**
-     * ✅ 결제 승인 (DB 저장 포함)
-     */
+    // 결제 승인(DB 저장 포함)
     public KakaoPayApproveResponseVO approve(Long memberNo, Long dogNo, String tid, String pgToken) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + adminKey);
@@ -90,8 +90,8 @@ public class DonationService {
                 KakaoPayApproveResponseVO.class
         );
 
-        // ✅ 결제 성공 시 DB 저장
-     // 2. DB 저장할 DonationVO 생성
+        // 결제 성공 시 DB 저장
+        // 2. DB 저장할 DonationVO 생성
         DonationVO donationVO = new DonationVO();
         donationVO.setMemberNo(memberNo);
         donationVO.setDogNo(dogNo);
