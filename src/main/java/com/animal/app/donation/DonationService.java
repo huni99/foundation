@@ -105,5 +105,31 @@ public class DonationService {
         
         return response;
     }
+    
+    
+    // 총 후원금 조회
+    public Integer getTotalDonation(long dogNo) throws Exception {
+    	return donationDAO.selectAmount(dogNo);
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }

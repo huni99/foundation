@@ -12,8 +12,10 @@
   	VALUES (#{memberNo}, #{dogNo}, #{tid}, #{amount}, #{status}, #{aprovedAt})
   </insert>
   
-  <select id="selectAmount">
-  
+  <select id="selectAmount" parameterType="long" resultType="int">
+  	SELECT SUM(AMOUNT)
+  	FROM DONATION
+  	WHERE DOG_NO = #{dogNo}
   </select>
   
   

@@ -9,9 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.animal.app.donation.DonationService;
 import com.animal.app.member.MemberVO;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +25,10 @@ import jakarta.validation.Valid;
 public class DogController {
 	@Autowired
 	private DogService dogService;
+	
+	@Autowired
+	private DonationService donationService;
+	
 	@GetMapping("list")
 	public void list (Model model)throws Exception {
 		List<DogVO> list = dogService.list();
@@ -45,6 +51,16 @@ public class DogController {
 	public void detail(DogVO dogVO,Model model)throws Exception{
 		dogVO=dogService.detail(dogVO);
 		model.addAttribute("dogVO",dogVO);
+		
+		Integer donation =  donationService.getTotalDonation(dogVO.getDogNo());
+		
+		if(donation == null) {
+			donation=0;
+		}
+		
+		model.addAttribute("totalDonation", donation);
+		
+			
 		
 	}
 	@ResponseBody
@@ -72,7 +88,6 @@ public class DogController {
 		return result;
 		
 	}
-	
 	
 	
 	

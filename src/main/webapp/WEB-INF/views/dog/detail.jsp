@@ -47,7 +47,7 @@
 								</td>
 								<td>${dogVO.dogPrice}</td>
 								<td><img src="/files/dog/${dogVO.dogFileVO.saveName}" style="width:100px;height:100px;"></td>
-								<td></td>
+								<td>${totalDonation}</td>
 							</tr>
 							<tr>
 								<td>비고</td>
