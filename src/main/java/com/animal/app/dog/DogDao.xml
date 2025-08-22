@@ -22,7 +22,7 @@
 	<select id="list" resultType="DogVO">
 		SELECT * FROM DOG
 		WHERE DOG_ACTIVE=TRUE
-
+		ORDER BY DOG_NO DESC
 	</select>
 	<insert id="insert" parameterType="DogVO"
 		useGeneratedKeys="true" keyProperty="dogNo">
@@ -41,7 +41,7 @@
 		from DOG
 		NATURAL JOIN DOG_PROFILE
 		WHERE DOG_NO =#{dogNo}
-
+		
 	</select>
 	<select id="cartList" parameterType="MemberVO"
 		resultMap="resultDog">
@@ -51,7 +51,7 @@
 		NATURAL JOIN DOG_PROFILE
 		WHERE MEMBER_NO=#{memberNo}
 			  AND DOG_ACTIVE=TRUE
-
+		ORDER BY DOG_NO DESC
 	</select>
 	<insert id="cartAdd" parameterType="java.util.Map">
 		INSERT INTO FAVARITES
