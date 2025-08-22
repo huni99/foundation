@@ -44,7 +44,11 @@
 							</tr>
 						</c:forEach>
 						</tbody>
-					</table>
+					</table>	
+					
+					<c:if test="${member.memberRole eq 1 }">
+						<a href="/dog/add">유기견 추가</a>
+					</c:if>
 				</div>
 			</main>
 			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>

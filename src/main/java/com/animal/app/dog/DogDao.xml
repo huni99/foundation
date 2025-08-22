@@ -21,6 +21,7 @@
 	</resultMap>
 	<select id="list" resultType="DogVO">
 		SELECT * FROM DOG
+		WHERE DOG_ACTIVE=TRUE
 
 	</select>
 	<insert id="insert" parameterType="DogVO"
@@ -49,6 +50,7 @@
 		NATURAL JOIN MEMBER
 		NATURAL JOIN DOG_PROFILE
 		WHERE MEMBER_NO=#{memberNo}
+			  AND DOG_ACTIVE=TRUE
 
 	</select>
 	<insert id="cartAdd" parameterType="java.util.Map">
@@ -70,4 +72,17 @@
 
 
 	</delete>
+	
+	<update id="delete" parameterType="long">
+		UPDATE DOG
+		SET DOG_ACTIVE =FALSE
+		WHERE DOG_NO =#{value}
+	</update>
+	
+	<insert id ="adoptLog" parameterType="java.util.Map">
+		INSERT INTO ADOPTIONLOG
+		VALUES(null,#{dogNo},#{memberNo})
+		
+	
+	</insert>
 </mapper>

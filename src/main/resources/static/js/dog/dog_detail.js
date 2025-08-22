@@ -22,4 +22,25 @@ btn_cart.addEventListener("click",()=>{
 		
 	  })
 })
+btn_adopt.addEventListener("click",()=>{
+	if(confirm("입양하시겠습니까?")){
+		const value= document.querySelector("#value");
+		const params = new URLSearchParams();
+		params.append("dogNo",value.value);
+		fetch("/dog/adopt",{
+			method:"post",
+			body:params
+			
+		}).then(r=>r.json())
+		  .then(r=>{
+			
+			location.href=r.next_redirect_pc_url;
+		  })
+		  
+		  
+			
+	}
+	
+	
+})
 
