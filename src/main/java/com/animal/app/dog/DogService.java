@@ -82,5 +82,14 @@ public class DogService {
 		
 		return dogDao.delete(item_name);
 	}
+
+	public int adoptLog(Long memberNo, Long dogNo) throws Exception {
+		Map<String, Long> map = new HashMap<>();
+		map.put("memberNo", memberNo);
+		map.put("dogNo", dogNo);
+		return dogDao.adoptLog(map);
+		
+		
+	}
 	
 }

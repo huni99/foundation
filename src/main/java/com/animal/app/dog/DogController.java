@@ -87,10 +87,11 @@ public class DogController {
 	}
 	
 	@GetMapping("success")
-	public String Success(@RequestParam("pg_token") String pgToken ,Model model)throws Exception{
+	public String Success(@RequestParam("pg_token") String pgToken ,Model model,HttpSession session)throws Exception{
 		KakaoApproveResponse res = payService.kakaoPayApprove(pgToken);
 		int result= dogService.delete(Long.parseLong(res.getItem_name()));
-
+		dogService.adoptLog(((MemberVO)session.getAttribute("member")).getMemberNo(),Long.parseLong(res.getItem_name()));
+		
 		model.addAttribute("url","/dog/list");
 		model.addAttribute("msg","결제 완료 ");
 		
@@ -107,6 +108,12 @@ public class DogController {
 		model.addAttribute("url","/dog/list");
 		model.addAttribute("msg","결제 취소 ");
 		return "/dog/result";
+	}
+	@GetMapping("/denied")
+	public String denied(Model model) {
+	    model.addAttribute("msg", "권한이 없습니다");
+	    model.addAttribute("url", "/");
+	    return "dog/result";
 	}
 	
 	

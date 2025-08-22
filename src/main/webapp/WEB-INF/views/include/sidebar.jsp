@@ -11,16 +11,12 @@
 						<i class="fas fa-columns"></i>
 					</div> 유기견 목록
 				</a>
-				<a class="nav-link collapsed" href="/qna/list" data-bs-toggle="collapse"
-					data-bs-target="#collapseLayouts" aria-expanded="false"
-					aria-controls="collapseLayouts">
+				<a class="nav-link collapsed" href="/dog/cartList">
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-columns"></i>
-					</div> 입양 문의
+					</div> 즐겨찾기
 				</a>
-				<a class="nav-link collapsed" href="/member/mypage" data-bs-toggle="collapse"
-					data-bs-target="#collapseLayouts" aria-expanded="false"
-					aria-controls="collapseLayouts">
+				<a class="nav-link collapsed" href="/member/detail">
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-columns"></i>
 					</div> 마이페이지

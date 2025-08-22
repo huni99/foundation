@@ -78,4 +78,11 @@
 		SET DOG_ACTIVE =FALSE
 		WHERE DOG_NO =#{value}
 	</update>
+	
+	<insert id ="adoptLog" parameterType="java.util.Map">
+		INSERT INTO ADOPTIONLOG
+		VALUES(null,#{dogNo},#{memberNo})
+		
+	
+	</insert>
 </mapper>
