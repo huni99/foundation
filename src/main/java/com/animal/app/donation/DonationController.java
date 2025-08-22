@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.animal.app.dog.DogService;
+import com.animal.app.dog.DogVO;
 import com.animal.app.member.MemberVO;
 
 import jakarta.servlet.http.HttpSession;
@@ -33,9 +35,7 @@ public class DonationController {
 
 
 	@GetMapping("/success")
-	public String success(@RequestParam("pg_token") String pgToken,
-	                      @RequestParam("dogNo") Long dogNo,
-	                      HttpSession session) throws Exception {
+	public String success(@RequestParam("pg_token") String pgToken, @RequestParam("dogNo") Long dogNo, HttpSession session) throws Exception {
 	    MemberVO member = (MemberVO) session.getAttribute("member");
 	    String tid = (String) session.getAttribute("tid");
 
@@ -64,6 +64,28 @@ public class DonationController {
     public String fail() throws Exception {
         return "redirect:/"; // 실패 시 홈으로
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 	
 
 }
